@@ -5,6 +5,9 @@ The project consists of a small self-built website with 3-4 services. These serv
 
 ## Milestones
 -Design the website
+
 -Deploy the working website
+
 -Research autoscaling (Tools and Concepts)
+
 -Implement the autoscalers
