@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fibonacci
+spec:
+  containers:
+    - name: fibonacci
+      image: kevbaker/go-fibonacci-service-fiber
+      ports:
+        - name: web
+          containerPort: 8888
+          protocol: TCP
