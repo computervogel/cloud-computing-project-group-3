@@ -1,0 +1,117 @@
+apiVersion: "autoscaling.k8s.io/v1"
+kind: VerticalPodAutoscaler
+metadata:
+  name: prime-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: prime
+  updatePolicy:
+    updateMode: auto
+  resourcePolicy:
+    containerPolicies:
+      - containerName: '*'
+        minAllowed:
+          cpu: 100m
+          memory: 50Mi
+        maxAllowed:
+          cpu: 1
+          memory: 500Mi
+        controlledResources: ["cpu", "memory"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: factorial
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: factorial
+  template:
+    metadata:
+      labels:
+        app: factorial
+    spec:
+      containers:
+      - name: factorial
+        image: matteoschweitzer/factorial:0.0.1
+        ports:
+        - containerPort: 5555
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: time
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: time
+  template:
+    metadata:
+      labels:
+        app: time
+    spec:
+      containers:
+      - name: time
+        image: matteoschweitzer/time:0.0.1
+        ports:
+        - containerPort: 7777
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prime
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prime
+  template:
+    metadata:
+      labels:
+        app: prime
+    spec:
+      containers:
+      - name: prime
+        image: matteoschweitzer/prime:0.0.1
+        ports:
+        - containerPort: 6666
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fibonacci
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fibonacci
+  template:
+    metadata:
+      labels:
+        app: fibonacci
+    spec:
+      containers:
+      - name: fibonacci
+        image: matteoschweitzer/fibonacci:0.0.1
+        ports:
+        - containerPort: 8888
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
