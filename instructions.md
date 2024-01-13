@@ -12,15 +12,9 @@
    kind create cluster
    ```
 
-1. Print the cluster info by executing the following command:
-
-   ```console
-   kubectl cluster-info --context kind-kind
-   ```
-
 ## minikube
 
-`minikube` minikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes."
+`minikube` minikube is local Kubernetes, focusing on making it easy to learn and develop for Kubernetes.
 
 ### Starting a local Cluster
 
@@ -30,126 +24,135 @@
    minikube start
    ```
 
-1. Print the cluster info by executing the following command:
-
-   ```console
-   kubectl cluster-info
-   ```
-
 ### STARTING MICROSERIVES
 
 ## Requirements
 
 - `kubectl` is connected to the Kubernetes cluster created
 
+```console
+   minikube addons enable metrics-server
+```
+
+
+## Start microservices
+Open integrated terminal for microservices.yaml an run:
+
+```console
+   kubectl apply -f microservices.yaml
+```
+
 ## Time microservice
-
-1. In Kubernetes, the equivalent to `docker container run` is `kubectl run`. Use this command to run your container:
-
-   ```console
-   kubectl run time --image=matteoschweitzer/time:0.0.1
-   ```
-
-1. To verify that the container has started and the app is running, use:
-
-   ```console
-   kubectl get pods
-   ```
 
 1. To forward your local port **9999** to the container port **7777**, use:
 
    ```console
-   kubectl port-forward pod/time 9999:7777
+   kubectl port-forward deployment/time 9999:7777
    ```
 
    :mag: Now, access the website [http://localhost:9999](http://localhost:9999).
 
-1. To delete the pod, use:
-
-   ```console
-   kubectl delete pod time
-   ```
-
 ## Fibonacci microservice
-
-1. In Kubernetes, the equivalent to `docker container run` is `kubectl run`. Use this command to run your container:
-
-   ```console
-   kubectl run fibonacci --image=matteoschweitzer/fibonacci:0.0.1
-   ```
-
-1. To verify that the container has started and the app is running, use:
-
-   ```console
-   kubectl get pods
-   ```
 
 1. To forward your local port **9090** to the container port **8888**, use:
 
    ```console
-   kubectl port-forward pod/fibonacci 9090:8888
+   kubectl port-forward deployment/fibonacci 9090:8888
    ```
 
    :mag: Now, access the website [http://localhost:9090](http://localhost:9090).
 
-1. To delete the pod, use:
-
-   ```console
-   kubectl delete pod fibonacci
-   ```
-
 ## Factorial microservice
-
-1. In Kubernetes, the equivalent to `docker container run` is `kubectl run`. Use this command to run your container:
-
-   ```console
-   kubectl run factorial --image=matteoschweitzer/factorial:0.0.1
-   ```
-
-1. To verify that the container has started and the app is running, use:
-
-   ```console
-   kubectl get pods
-   ```
 
 1. To forward your local port **9000** to the container port **5555**, use:
 
    ```console
-   kubectl port-forward pod/factorial 9000:5555
+   kubectl port-forward deployment/factorial 9000:5555
    ```
 
    :mag: Now, access the website [http://localhost:9000](http://localhost:9000).
 
-1. To delete the pod, use:
-
-   ```console
-   kubectl delete pod factorial
-   ```
-
 ## prime microservice
-
-1. In Kubernetes, the equivalent to `docker container run` is `kubectl run`. Use this command to run your container:
-
-   ```console
-   kubectl run prime --image=matteoschweitzer/prime:0.0.1
-   ```
-
-1. To verify that the container has started and the app is running, use:
-
-   ```console
-   kubectl get pods
-   ```
 
 1. To forward your local port **9990** to the container port **6666**, use:
 
    ```console
-   kubectl port-forward pod/prime 9990:6666
+   kubectl port-forward deployment/prime 9990:6666
    ```
 
    :mag: Now, access the website [http://localhost:9990](http://localhost:9990).
 
-1. To delete the pod, use:
+
+### STARTING VERTICAL AUTOSCALER
+
+1. Run following commands in order and an integrated terminal of vertical-autoscaler.yaml
 
    ```console
-   kubectl delete pod prime
+   git clone https://github.com/kubernetes/autoscaler.git
    ```
+
+   ```console
+   cd autoscaler/vertical-pod-autoscaler/
+   ```
+
+   ```console
+   ./hack/vpa-up.sh
+   ```
+
+   ```console
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-rbac.yaml
+   kubectl apply -f <path_to_vpa.yaml>
+   ```
+
+1. to check if the autoscaler is running, run:
+
+   ```console
+   kubectl get pods -n kube-system
+   ```
+
+1. to stop the autoscaler, run:
+
+   ```console
+   ./hack/vpa-down.sh
+   ```
+
+
+### STARTING HORIZONTAL AUTOSCALER
+
+1. Run following commands in order and an integrated terminal of vertical-autoscaler.yaml
+
+   ```console
+   kubectl autoscale deployment <name> --cpu-percent=50 --min=1 --max=10
+   ```
+   or
+   ```console
+   kubectl apply -f <path_to_hpa.yaml>
+   ```
+
+1. to check if the autoscaler is running, run:
+
+   ```console
+   kubectl get hpa
+   ```
+1. to see the load, run:
+
+   ```console
+   kubectl get hpa <name> --watch
+   ```
+
+1. to stop the autoscaler, run:
+
+   ```console
+   kubectl delete hpa <name>
+   ```
+
+
+
+### LOAD-TESTER
+
+1. K6 load-tester is used for load-generating:
+
+```console
+k6 run /Users/matti/Desktop/cloud-computing-project-group-3/testFibonacci.js
+```
