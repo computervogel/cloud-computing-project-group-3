@@ -36,10 +36,10 @@
 
 
 ## Start microservices
-Open integrated terminal for microservices.yaml an run:
+Open terminal and run:
 
 ```console
-   kubectl apply -f microservices.yaml
+   kubectl apply -f <path_to_microservices.yaml>
 ```
 
 ## Time microservice
@@ -100,8 +100,11 @@ Open integrated terminal for microservices.yaml an run:
    ```
 
    ```console
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
+   
    kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-rbac.yaml
+
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/vpa-release-1.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
+
    kubectl apply -f <path_to_vpa.yaml>
    ```
 
@@ -154,5 +157,5 @@ Open integrated terminal for microservices.yaml an run:
 1. K6 load-tester is used for load-generating:
 
 ```console
-k6 run /Users/matti/Desktop/cloud-computing-project-group-3/testFibonacci.js
+k6 run <path_to_respective_test>
 ```
