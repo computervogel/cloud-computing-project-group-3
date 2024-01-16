@@ -20,7 +20,9 @@ For our project we use the K6 autoscaler.
 
 ## Responsibilities
 -Horizontal Pod Autoscaler - Maximilian Fink
+
 -Vertical Pod Autoscaler - Daniel Lovrinovic
+
 -Website, Tests and Microservices - Matteo Schweitzer
 
 But in the end, we all worked together on all of these topics and implemented and tested them.
