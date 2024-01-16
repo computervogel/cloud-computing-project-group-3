@@ -54,7 +54,7 @@
 
 ### Start microservices
 
-If you want to build the microservices by yourself and run them locally, then go to the [Microservice Instructions](microservices/INSTRUCTIONS_MICROSERVICES.md).
+If you want to build the microservices and run them locally without minikube, then go to the [Microservice Instructions](microservices/INSTRUCTIONS_MICROSERVICES.md).
 
 Open terminal and run:
 
